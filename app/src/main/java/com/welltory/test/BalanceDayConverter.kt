@@ -37,7 +37,10 @@ object BalanceDayConverter {
                         null -> createNewIteratorState(startDate, endDate)
                         else -> when {
                             state.isSameHour(startDate) -> updateIteratorState(state, startDate, endDate)
-                            else -> state.addBalancePoints(activityData).let { null }
+                            else -> {
+                                state.addBalancePoints(activityData)
+                                createNewIteratorState(startDate, endDate)
+                            }
                         }
                     }
                     // different hours
